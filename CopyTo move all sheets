@@ -1,0 +1,22 @@
+function onOpen(){
+  var menu = SpreadsheetApp.getUi();
+  menu.createMenu('Importar folhas')
+     .addItem('Iniciar ', 'ImportSheets')
+  .addToUi();
+}
+
+function ImportSheets() {
+    var IdSheet = Browser.inputBox('Digite o ID da planilha que deseja importar:', Browser.Buttons.OK)
+     if (IdSheet == ''){
+      var IdSheet = Browser.inputBox('Vazio, digite novamente o ID da Planilha', Browser.Buttons.OK_CANCEL);
+    }else{
+      IdSheet.toString();
+      var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+      var quant = spreadsheet.getSheets().length;
+  
+      for(var i=0; i<quant; i++){
+      var destino = SpreadsheetApp.openById(IdSheet);
+      spreadsheet.getSheets()[i].copyTo(destino);
+    }
+  }
+}
